@@ -8,12 +8,13 @@ using DynamicConfig.Lib.Abstract;
 using DynamicConfig.Lib.DataAccess.MongoDB;
 using DynamicConfig.Lib.IOC;
 using DynamicConfig.Lib.Models.Entities;
+using MongoDB.Driver.Core.Configuration;
 
 namespace DynamicConfig.Lib.Concrete
 {
     public static class ConfigSettings
     {
-        public static string ApplicationName { get; set; } = "";
+        public static string ApplicationName { get; set; } = "ServiceA";
         public static string ConnectionString { get; set; } = "";
         public static int RefreshTimerIntervalInMs { get; set; } = 5000;
     }
@@ -21,34 +22,44 @@ namespace DynamicConfig.Lib.Concrete
     public class ConfigurationReader : IConfigurationReader
     {
         public string ApplicationName { get; set; }
-        AutoResetEvent _autoEvent = null;
-        Timer _timer = null;
-        private IEnumerable<Configuration> confList;
+        private AutoResetEvent _autoEvent = null;
+        private Timer _timer = null;
+        private ICollection<Configuration> _confList;
 
-        private IConfigurationRepository _configurationRepository;
+        private readonly IConfigurationRepository _configurationRepository;
 
-        private int _refreshTimerInterval;
+        private readonly int _refreshTimerInterval;
+        private readonly string _applicationName;
+        private readonly string _connectionString;
 
         public CancellationToken CancellationToken { get; set; }
 
         public ConfigurationReader(string applicationName,string connectionString,int refreshTimerIntervalInMs)
         {
             _configurationRepository = DependencyService.Instance.CurrentResolver.Resolve<IConfigurationRepository>();
-            confList = new List<Configuration>();
+            _confList = new List<Configuration>();
             _refreshTimerInterval = refreshTimerIntervalInMs;
-            applicationName = applicationName;
-            Task.Run(() => this.StartTimer(CancellationToken)).Wait();
+            _applicationName = applicationName;
+            _connectionString = connectionString;
+
+            Task.Run(() => this.CheckDatas()).Wait(); // first call for config datas
+            Task.Run(() => this.StartTimer(CancellationToken));
         }
 
         public async Task CheckDatas()
         {
             Console.WriteLine("triggered");
 
-            var list = await _configurationRepository.GetAll();
-            list = list.Where(v => v.ApplicationName == ApplicationName);
+            IEnumerable<Configuration> list = await _configurationRepository.GetAll();
+            List<Configuration> conflist = list.ToList();
+            _confList.Clear();
+            foreach (Configuration configuration in list)
+            {
+                _confList.Add(configuration);
+            }
         }
 
-        public async Task StartTimer(CancellationToken cancellationToken)
+        private async Task StartTimer(CancellationToken cancellationToken)
         {
             
             await Task.Run(async () =>
@@ -67,8 +78,15 @@ namespace DynamicConfig.Lib.Concrete
         
         public T GetValue<T>(string key)
         {
-            string type = "string";
-            return (T) Activator.CreateInstance<T>();
+            
+            Configuration configuration = _confList.FirstOrDefault(v => v.Name == key);
+            if(configuration == null)
+                throw new ArgumentNullException("There is no value for this key");
+
+            Type confType = TypeMap(configuration.Type);
+            
+            object value = Convert.ChangeType(configuration.Value, confType);
+            return (T) value;
         }
 
         public Type TypeMap(string type)

@@ -1,3 +1,5 @@
+using DynamicConfig.Lib.Concrete;
+
 namespace DynamicConfig.Lib.DataAccess.MongoDB
 {
     public class MongoDbConfig
@@ -11,6 +13,10 @@ namespace DynamicConfig.Lib.DataAccess.MongoDB
         {
             get 
             {
+                if (!string.IsNullOrEmpty(ConfigSettings.ConnectionString))
+                {
+                    return ConfigSettings.ConnectionString;
+                }
                 if (string.IsNullOrEmpty(User) || string.IsNullOrEmpty(Password))
                     return $@"mongodb://{Host}:{Port}";
                 return $@"mongodb://{User}:{Password}@{Host}:{Port}";

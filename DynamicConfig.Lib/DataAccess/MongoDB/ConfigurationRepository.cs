@@ -24,9 +24,9 @@ namespace DynamicConfig.Lib.DataAccess.MongoDB
                 .ToListAsync();
         }
 
-        public Task<Configuration> GetOne(long id)
+        public Task<Configuration> GetOne(string id)
         {
-            FilterDefinition<Configuration> filter = Builders<Configuration>.Filter.Eq(m => m.Id, id);
+            FilterDefinition<Configuration> filter = Builders<Configuration>.Filter.Eq(m => m._id, id);
             return _context
                 .Configurations
                 .Find(filter)
@@ -38,9 +38,9 @@ namespace DynamicConfig.Lib.DataAccess.MongoDB
             await _context.Configurations.InsertOneAsync(model);
         }
 
-        public async Task<bool> Delete(long id)
+        public async Task<bool> Delete(string id)
         {
-            FilterDefinition<Configuration> filter = Builders<Configuration>.Filter.Eq(m => m.Id, id);
+            FilterDefinition<Configuration> filter = Builders<Configuration>.Filter.Eq(m => m._id, id);
             DeleteResult deleteResult = await _context
                 .Configurations
                 .DeleteOneAsync(filter);
