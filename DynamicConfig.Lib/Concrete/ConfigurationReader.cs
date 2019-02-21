@@ -21,7 +21,7 @@ namespace DynamicConfig.Lib.Concrete
     
     public class ConfigurationReader : IConfigurationReader
     {
-        public string ApplicationName { get; set; }
+        private readonly Mutex mutex = new Mutex();
         private AutoResetEvent _autoEvent = null;
         private Timer _timer = null;
         private ICollection<Configuration> _confList;
@@ -31,6 +31,8 @@ namespace DynamicConfig.Lib.Concrete
         private readonly int _refreshTimerInterval;
         private readonly string _applicationName;
         private readonly string _connectionString;
+        
+        private readonly object syncLock = new object();
 
         public CancellationToken CancellationToken { get; set; }
 
@@ -49,7 +51,6 @@ namespace DynamicConfig.Lib.Concrete
         public async Task CheckDatas()
         {
             Console.WriteLine("triggered");
-
             IEnumerable<Configuration> list = await _configurationRepository.GetAll();
             List<Configuration> conflist = list.ToList();
             _confList.Clear();
@@ -57,6 +58,7 @@ namespace DynamicConfig.Lib.Concrete
             {
                 _confList.Add(configuration);
             }
+            
         }
 
         private async Task StartTimer(CancellationToken cancellationToken)
