@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicConfig.Test", "Dynam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicConfig.ConsoleTest", "DynamicConfig.ConsoleTest\DynamicConfig.ConsoleTest.csproj", "{7899DA29-7F8D-44E2-B90C-FC26333F068D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicConfig.Api", "DynamicConfig.Api\DynamicConfig.Api.csproj", "{D0057B68-81B3-4F4A-96A9-77C9E8709911}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{7899DA29-7F8D-44E2-B90C-FC26333F068D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7899DA29-7F8D-44E2-B90C-FC26333F068D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7899DA29-7F8D-44E2-B90C-FC26333F068D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0057B68-81B3-4F4A-96A9-77C9E8709911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0057B68-81B3-4F4A-96A9-77C9E8709911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0057B68-81B3-4F4A-96A9-77C9E8709911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0057B68-81B3-4F4A-96A9-77C9E8709911}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

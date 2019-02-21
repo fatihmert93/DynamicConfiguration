@@ -8,6 +8,7 @@ namespace DynamicConfig.Lib.DataAccess
         Task<IEnumerable<TModel>> GetAll();
         Task<TModel> GetOne(string id);
         Task Create(TModel model);
+        Task<bool> Update(TModel model);
         Task<bool> Delete(string id);
         Task<long> GetNextId();
     }

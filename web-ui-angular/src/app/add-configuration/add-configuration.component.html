@@ -1,0 +1,26 @@
+<div class="col-md-6">
+  <h2 class="text-center">Add Config</h2>
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" [(ngModel)]="config.name" placeholder="Name" name="name" class="form-control" id="name">
+  </div>
+
+  <div class="form-group">
+    <label for="name">Type:</label>
+    <input type="text" [(ngModel)]="config.type" placeholder="Type" name="name" class="form-control" id="type">
+  </div>
+
+  <div class="form-group">
+    <label for="name">Value:</label>
+    <input type="text" [(ngModel)]="config.value" placeholder="Value" name="name" class="form-control" id="value">
+  </div>
+
+  
+
+  <div class="form-group">
+    <label for="name">Application Name:</label>
+    <input type="text" [(ngModel)]="config.applicationName" placeholder="Application Name" name="appname" class="form-control" id="appname">
+  </div>
+
+  <button class="btn btn-success" (click)="onSubmit()" >Save</button>
+</div>

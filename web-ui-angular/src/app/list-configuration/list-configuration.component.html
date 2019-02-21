@@ -1,0 +1,30 @@
+<div class="col-md-6">
+  <h2> Configuration List</h2>
+  <button class="btn btn-danger" (click)="addConfiguration()"> Add New Config</button> <br/> <br/>
+
+  <input type="text" class="form-control" (ngModelChange)="searchChange($event)" [(ngModel)]="searchModel" placeholder="Search" /> <br/> <br/>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Value</th>
+      <th>Is Active</th>
+      <th>Application Name</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let config of configs">
+      <td>{{config.name}}</td>
+      <td>{{config.type}}</td>
+      <td>{{config.value}}</td>
+      <td>{{config.isActive}}</td>
+      <td>{{config.applicationName}}</td>
+      <td><button class="btn btn-danger" (click)="delete(config)"> Delete</button>
+        <button class="btn btn-danger" (click)="edit(config)" style="margin-left: 20px;"> Edit</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

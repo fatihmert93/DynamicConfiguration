@@ -38,6 +38,18 @@ namespace DynamicConfig.Lib.DataAccess.MongoDB
             await _context.Configurations.InsertOneAsync(model);
         }
 
+        public async Task<bool> Update(Configuration model)
+        {
+            ReplaceOneResult updateResult =
+                await _context
+                    .Configurations
+                    .ReplaceOneAsync(
+                        filter: g => g._id == model._id,
+                        replacement: model);
+            return updateResult.IsAcknowledged
+                   && updateResult.ModifiedCount > 0;
+        }
+
         public async Task<bool> Delete(string id)
         {
             FilterDefinition<Configuration> filter = Builders<Configuration>.Filter.Eq(m => m._id, id);
