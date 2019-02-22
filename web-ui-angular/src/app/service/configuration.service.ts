@@ -18,14 +18,14 @@ export class ConfigurationService {
   }
 
   create(config: Configuration) {
-    return this.http.post(this.baseUrl, config);
+    return this.http.post(this.baseUrl + "/create", config);
   }
 
   update(config: Configuration) {
-    return this.http.post(this.baseUrl, config);
+    return this.http.post(this.baseUrl + "/update", config);
   }
 
   delete(id: string) {
-    return this.http.delete(this.baseUrl + '?_id=' + id);
+    return this.http.get(this.baseUrl + '/delete?_id=' + id);
   }
 }

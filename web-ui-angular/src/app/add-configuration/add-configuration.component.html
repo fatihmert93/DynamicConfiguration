@@ -15,7 +15,13 @@
     <input type="text" [(ngModel)]="config.value" placeholder="Value" name="name" class="form-control" id="value">
   </div>
 
-  
+  <div class="form-group">
+    <label for="fooz">Is Active</label>
+    <select [(ngModel)]="config.isActive" name="fooz" class="custom-select"> 
+      <option [ngValue]="true">Active</option> 
+      <option [ngValue]="false">Passive</option> 
+    </select>
+  </div>
 
   <div class="form-group">
     <label for="name">Application Name:</label>

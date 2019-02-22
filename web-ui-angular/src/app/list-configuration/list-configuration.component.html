@@ -20,10 +20,13 @@
       <td>{{config.name}}</td>
       <td>{{config.type}}</td>
       <td>{{config.value}}</td>
-      <td>{{config.isActive}}</td>
+      <td *ngIf="config.isActive==true">Active</td>
+      <td *ngIf="config.isActive==false">Passive</td>
       <td>{{config.applicationName}}</td>
-      <td><button class="btn btn-danger" (click)="delete(config)"> Delete</button>
-        <button class="btn btn-danger" (click)="edit(config)" style="margin-left: 20px;"> Edit</button></td>
+      <td>
+        <button class="btn btn-danger" (click)="delete(config)"> Delete</button>
+        <button class="btn btn-danger" (click)="edit(config)" style="margin-left: 20px;"> Edit</button>
+      </td>
     </tr>
     </tbody>
   </table>

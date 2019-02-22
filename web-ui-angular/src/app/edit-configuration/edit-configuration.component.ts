@@ -18,16 +18,13 @@ export class EditConfigurationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private router: Router, private configService: ConfigurationService) { }
 
   ngOnInit() {
-    let userId = localStorage.getItem("editUserId");
-    if(!userId) {
+    let config =  JSON.parse(localStorage.getItem("editConfig"));
+    if(!config) {
       alert("Invalid action.")
       this.router.navigate(['list-configuration']);
       return;
     }
-    this.configService.getById(userId)
-      .subscribe( data => {
-        this.config = data.data;
-      });
+    this.config = config;
   }
 
   onSubmit() {

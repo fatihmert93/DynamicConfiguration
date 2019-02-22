@@ -19,9 +19,9 @@ namespace DynamicConfig.Lib.IOC
             };
 
             builder.RegisterType<ConfigurationReader>().As<IConfigurationReader>()
-                .WithParameters(configParameters);
+                .WithParameters(configParameters).SingleInstance();
 
-            builder.RegisterType<ConfigurationContext>().As<IConfigurationContext>();
+            builder.RegisterType<ConfigurationContext>().As<IConfigurationContext>().SingleInstance();
 
             builder.RegisterType<MongoDbConfig>();
             

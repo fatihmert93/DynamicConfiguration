@@ -46,8 +46,8 @@ export class ListConfigurationComponent implements OnInit {
   };
 
   edit(config: Configuration): void {
-    localStorage.removeItem("editUserId");
-    localStorage.setItem("editUserId", config._id);
+    localStorage.removeItem("editConfig");
+    localStorage.setItem("editConfig", JSON.stringify(config));
     this.router.navigate(['edit-configuration']);
   };
 

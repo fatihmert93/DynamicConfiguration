@@ -40,7 +40,7 @@ namespace DynamicConfig.Api.Controllers
             var list = await _configurationRepository.GetAll();
             if (!string.IsNullOrEmpty(searchModel))
             {
-                list = list.Where(v => v.Name.Contains(searchModel));
+                list = list.Where(v => v.Name.ToLower().Contains(searchModel.ToLower()));
             }
 
             _responseModel.Data = list;

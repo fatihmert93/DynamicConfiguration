@@ -14,7 +14,7 @@ export class AddConfigurationComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,private router: Router, private configService: ConfigurationService) { }
 
-  config: Configuration = <Configuration> {};
+  config: Configuration = <Configuration> {isActive:true };
 
   ngOnInit() {
 
