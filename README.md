@@ -7,7 +7,7 @@ Supports .Net Standard 2.0.
 docker-compose up
 ```
 
-##Mongodb insert data example
+## Mongodb insert data example
 ```csharp
 db.Configurations.insert({"Name": "SiteName", "Type":"string", "IsActive": true,"ApplicationName": "ServiceA","Value":"boyner.com.tr"})
 ```
