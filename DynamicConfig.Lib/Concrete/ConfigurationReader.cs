@@ -48,31 +48,24 @@ namespace DynamicConfig.Lib.Concrete
             {
                 _confList.Add(configuration);
             }
-            
         }
 
         private async Task StartTimer(CancellationToken cancellationToken)
         {
-            
-            
-            
             await Task.Run(async () =>
             {
                 while (true)
                 {
-                    
                     await CheckDatas();
                     await Task.Delay(_refreshTimerInterval, cancellationToken);
                     if (cancellationToken.IsCancellationRequested)
                         break;
                 }
             }, cancellationToken);
-
         }
         
         public T GetValue<T>(string key)
         {
-            
             Configuration configuration = _confList.FirstOrDefault(v => v.Name == key);
             if(configuration == null)
                 throw new ArgumentNullException("There is no value for this key");
